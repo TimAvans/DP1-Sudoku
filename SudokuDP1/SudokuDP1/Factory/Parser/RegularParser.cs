@@ -24,15 +24,40 @@ namespace SudokuDP1.Factory.Parser
             double nrows = regionsize / (regionsize / Math.Floor(Math.Sqrt(regionsize)));
             double regionrowsize = regionsize / nrows;
 
+            int regY = 0;
+            int regX = 0;
+            int currX = 0;
+            int currY = 0;
 
             Dictionary<int, Region> grid = new Dictionary<int, Region>();
 
-            foreach (char c in file[0])
+            foreach (var c in file[0])
             {
-
-
+                if (currX > regionrowsize)
+                {
+                    if (currX > regionsize)
+                    {
+                        if (currY < nrows)
+                        {
+                            currY++;
+                            currX++;
+                        }
+                        else
+                        {
+                            currY = 0;
+                            regY++;
+                        }
+                        currX = 0;
+                    }
+                    else
+                    {
+                        regX++;
+                    }
+                }
+                currX++;
             }
         }
+
         string IParser.Type()
         {
             return Type;

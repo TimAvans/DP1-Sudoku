@@ -8,6 +8,10 @@ namespace SudokuDP1.Model
 {
     public class Region
     {
-        public Dictionary<int, Cell[]> region = new Dictionary<int, Cell[]>(); 
+        public Dictionary<int, Cell[]> region = new Dictionary<int, Cell[]>();
+        public int X;
+        public int Y;
+        public int width;
+        public int height;
     }
 }
