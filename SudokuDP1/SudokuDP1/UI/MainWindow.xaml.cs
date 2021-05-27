@@ -24,5 +24,10 @@ namespace SudokuDP1
         {
             InitializeComponent();
         }
+
+        private void btnOpenFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

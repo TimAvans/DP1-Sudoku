@@ -89,10 +89,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Factory\ParserFactory.cs" />
+    <Compile Include="Factory\Parser\ConcreteParser.cs" />
     <Compile Include="Factory\Parser\IParser.cs" />
     <Compile Include="Factory\Parser\JigsawParser.cs" />
     <Compile Include="Factory\Parser\RegularParser.cs" />
     <Compile Include="Factory\Parser\SamuraiParser.cs" />
+    <Compile Include="FileReader\Filereader.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="UI\MainWindow.xaml">
@@ -139,6 +141,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="FileReader\Files\" />
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>

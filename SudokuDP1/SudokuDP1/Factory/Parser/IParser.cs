@@ -1,8 +1,10 @@
-﻿namespace SudokuDP1.Factory.Parser
+﻿using System.Collections.Generic;
+
+namespace SudokuDP1.Factory.Parser
 {
     public interface IParser
     {
-        void Parse();
+        void Parse(List<string> file);
         IParser Clone();
         string Type();
     }

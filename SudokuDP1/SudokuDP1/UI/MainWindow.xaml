@@ -9,6 +9,7 @@
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         >
     <Grid>
-        
+        <Button Content="FilePicker" Command="{Binding OpenFilePicker}" HorizontalAlignment="Left" Margin="19,46,0,0" VerticalAlignment="Top" Width="75"/>
+
     </Grid>
 </Window>
