@@ -20,6 +20,11 @@ namespace SudokuDP1.Factory.Parser
             throw new NotImplementedException();
         }
 
+        public void Parse(List<string> file)
+        {
+            throw new NotImplementedException();
+        }
+
         string IParser.Type()
         {
             return Type;

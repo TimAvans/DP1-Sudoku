@@ -20,41 +20,47 @@ namespace SudokuDP1.Factory.Parser
         {
             //Grid array
             // -> subrosters -> cells
-            double regionsize = Math.Sqrt(file[0].Length);
-            double nrows = regionsize / (regionsize / Math.Floor(Math.Sqrt(regionsize)));
-            double regionrowsize = regionsize / nrows;
+            double gridWidth = Math.Sqrt(file[0].Length);
+            double amt_regionrow = gridWidth / (gridWidth / Math.Floor(Math.Sqrt(gridWidth)));
+            double regionrowsize = gridWidth / amt_regionrow;
 
-            int regY = 0;
-            int regX = 0;
-            int currX = 0;
-            int currY = 0;
+            int regY = 0; //Y in region
+            int regX = -1; //X in region
+            int currX = -1; //Y in total
+            int currY = 0; //X in total
 
-            Dictionary<int, Region> grid = new Dictionary<int, Region>();
+            int regNumber = 0;
+
+            //Dictionary<int, Region> grid = new Dictionary<int, Region>();
+            List<Cell> cells = new List<Cell>();
 
             foreach (var c in file[0])
             {
-                if (currX > regionrowsize)
+                Cell cell = new Cell(c);
+                //gridwidth behaald, regeltje omlaag
+                if (currX >= gridWidth-1) //Ga row naar beneden
                 {
-                    if (currX > regionsize)
+                    regY++;
+                    regX = 0;
+                    currX = 0;
+                } else
+                {
+                    if(regX >= regionrowsize-1)
                     {
-                        if (currY < nrows)
-                        {
-                            currY++;
-                            currX++;
-                        }
-                        else
-                        {
-                            currY = 0;
-                            regY++;
-                        }
-                        currX = 0;
+                        regX = -1;
                     }
-                    else
-                    {
-                        regX++;
-                    }
+                    regX++;
+                    currX++;
                 }
-                currX++;
+
+                cell.X = regX;
+                cell.Y = regY;
+                cells.Add(cell);
+            }
+
+            foreach(Cell cell in cells)
+            {
+                Console.WriteLine(cell.value + ": " + cell.X + " " + cell.Y);
             }
         }
 

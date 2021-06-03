@@ -12,10 +12,13 @@ namespace SudokuDP1.Model
 
         public int region { get; set; }
 
-        public Cell(int value, int region) 
+        public int X { get; set; }
+
+        public int Y { get; set; }
+
+        public Cell(int value) 
         {
             this.value = value;
-            this.region = region;
         }
 
     }
