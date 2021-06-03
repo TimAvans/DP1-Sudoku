@@ -95,6 +95,8 @@
     <Compile Include="Factory\Parser\RegularParser.cs" />
     <Compile Include="Factory\Parser\SamuraiParser.cs" />
     <Compile Include="FileReader\Filereader.cs" />
+    <Compile Include="Model\Cell.cs" />
+    <Compile Include="Model\Region.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="UI\MainWindow.xaml">
@@ -142,7 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FileReader\Files\" />
-    <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
