@@ -8,8 +8,6 @@ namespace SudokuDP1.FileReader
 {
     public class Filereader
     {
-        public Filereader() { }
-
         public string GetSudokuType(string location) 
         {
             return location.Split('.')[1].Any(char.IsDigit) ? "regularparser" : location.Split('.')[1] + "parser";

@@ -8,17 +8,22 @@ namespace SudokuDP1.Model
 {
     public class Cell
     {
-        public int value { get; set; }
+        public int Value { get; set; }
 
-        public int region { get; set; }
+        public string Valuestr { get { return Value.ToString(); } set { Value = int.Parse(value); } }
+
+        public int Region { get; set; }
 
         public int X { get; set; }
 
         public int Y { get; set; }
 
-        public Cell(int value) 
+        public Cell(int value, int reg, int x, int y) 
         {
-            this.value = value;
+            this.Value = value;
+            this.Region = reg;
+            this.X = x;
+            this.Y = y;
         }
 
     }

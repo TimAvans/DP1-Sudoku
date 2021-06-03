@@ -15,7 +15,7 @@ namespace SudokuDP1.Factory.Parser
             return (SamuraiParser)MemberwiseClone();
         }
 
-        public void Parse(List<string> file)
+        public List<int[]> Parse(List<string> file)
         {
             throw new NotImplementedException();
         }

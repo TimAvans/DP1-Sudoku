@@ -10,7 +10,7 @@ namespace SudokuDP1.Factory
 {
     public class ParserFactory : IFactory
     {
-        public Dictionary<string, IParser> types = new Dictionary<string, IParser>();
+        private Dictionary<string, IParser> Types = new Dictionary<string, IParser>();
 
         public ParserFactory() { LoadTypes(); }
 
@@ -34,12 +34,12 @@ namespace SudokuDP1.Factory
 
         public void Register(string type, IParser parser) 
         {
-            types[type] = parser;
+            Types[type] = parser;
         }
 
         public IParser Create(string type)
         {
-            IParser tmp = types[type];
+            IParser tmp = Types[type];
             return tmp.Clone();
         }
     }

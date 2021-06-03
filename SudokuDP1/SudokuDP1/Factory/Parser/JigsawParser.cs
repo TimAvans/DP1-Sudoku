@@ -15,12 +15,7 @@ namespace SudokuDP1.Factory.Parser
             return (JigsawParser)MemberwiseClone();
         }
 
-        public void Parse()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Parse(List<string> file)
+        public List<int[]> Parse(List<string> file)
         {
             throw new NotImplementedException();
         }

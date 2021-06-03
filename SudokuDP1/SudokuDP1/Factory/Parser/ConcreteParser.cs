@@ -1,4 +1,5 @@
 ﻿using SudokuDP1.FileReader;
+using System.Collections.Generic;
 using System.IO;
 
 namespace SudokuDP1.Factory.Parser
@@ -14,12 +15,12 @@ namespace SudokuDP1.Factory.Parser
             fr = new Filereader();
         }
 
-        public void Parse(string location) 
+        public List<int[]> Parse(string location) 
         {
             System.Console.WriteLine(fr.GetSudokuType(Path.GetFileName(location)));
             var x = fr.ReadFile(location);
             System.Console.WriteLine(x[0]);
-            factory.Create(fr.GetSudokuType(Path.GetFileName(location))).Parse(fr.ReadFile(location));          
+            return factory.Create(fr.GetSudokuType(Path.GetFileName(location))).Parse(fr.ReadFile(location));          
         }
     }
 }

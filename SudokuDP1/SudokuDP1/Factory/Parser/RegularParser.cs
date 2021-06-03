@@ -16,7 +16,7 @@ namespace SudokuDP1.Factory.Parser
             return (IParser)MemberwiseClone();
         }
 
-        public void Parse(List<string> file)
+        public List<int[]> Parse(List<string> file)
         {
             //Grid array
             // -> subrosters -> cells
@@ -24,44 +24,57 @@ namespace SudokuDP1.Factory.Parser
             double amt_regionrow = gridWidth / (gridWidth / Math.Floor(Math.Sqrt(gridWidth)));
             double regionrowsize = gridWidth / amt_regionrow;
 
+            int regBegin = 0;
             int regY = 0; //Y in region
             int regX = -1; //X in region
-            int currX = -1; //Y in total
-            int currY = 0; //X in total
+            int currX = -1; //X in total
 
             int regNumber = 0;
 
-            //Dictionary<int, Region> grid = new Dictionary<int, Region>();
-            List<Cell> cells = new List<Cell>();
+            List<int[]> cell_data = new List<int[]>();
 
-            foreach (var c in file[0])
+            foreach (char c in file[0])
             {
-                Cell cell = new Cell(c);
                 //gridwidth behaald, regeltje omlaag
-                if (currX >= gridWidth-1) //Ga row naar beneden
+                if (currX >= gridWidth - 1) //Ga row naar beneden
                 {
-                    regY++;
-                    regX = 0;
-                    currX = 0;
-                } else
+                    if (regY >= amt_regionrow-1)
+                    {//regio omlaag
+                        regX = 0;
+                        currX = 0;
+                        regY = 0;
+                        regNumber++;
+                        regBegin = regNumber;
+                    }
+                    else //regio naar links
+                    {
+                        regX = 0;
+                        currX = 0;
+                        regY++;
+                        regNumber = regBegin;
+                    }
+                }
+                else
                 {
-                    if(regX >= regionrowsize-1)
+                    if (regX >= regionrowsize - 1) //regio naar rechts
                     {
                         regX = -1;
+                        regNumber++;
                     }
                     regX++;
                     currX++;
                 }
 
-                cell.X = regX;
-                cell.Y = regY;
-                cells.Add(cell);
+                int val = (int)Char.GetNumericValue(c);
+                cell_data.Add(new int[4] { (int)Char.GetNumericValue(c), regNumber, regX, regY });
             }
 
-            foreach(Cell cell in cells)
-            {
-                Console.WriteLine(cell.value + ": " + cell.X + " " + cell.Y);
-            }
+            //foreach (Cell cell in cells)
+            //{
+            //    Console.WriteLine(cell.value + ": " + cell.X + " " + cell.Y + "-----" + cell.region);
+            //}
+
+            return cell_data;
         }
 
         string IParser.Type()

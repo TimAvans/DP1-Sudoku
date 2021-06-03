@@ -4,7 +4,7 @@ namespace SudokuDP1.Factory.Parser
 {
     public interface IParser
     {
-        void Parse(List<string> file);
+        List<int[]> Parse(List<string> file);
         IParser Clone();
         string Type();
     }

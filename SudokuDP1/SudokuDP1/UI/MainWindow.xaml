@@ -3,13 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:SudokuDP1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         >
-    <Grid>
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding ShowCellsCommand}"
+                    Key="S"/>
+    </Window.InputBindings>
+    
+    <StackPanel>
         <Button Content="FilePicker" Command="{Binding OpenFilePicker}" HorizontalAlignment="Left" Margin="19,46,0,0" VerticalAlignment="Top" Width="75"/>
 
-    </Grid>
+        <ItemsControl ItemsSource="{Binding Game.Sudoku.Cells}">
+
+            <!-- This panel will be used to hold the items -->
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="{Binding Game.Size}" Columns="{Binding Game.Size}" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <!-- Each item will be drawn using this template -->
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <xctk:MaskedTextBox Mask="0" Text="{Binding Value, Mode=TwoWay}"></xctk:MaskedTextBox> 
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
 </Window>
