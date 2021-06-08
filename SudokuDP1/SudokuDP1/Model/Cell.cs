@@ -8,9 +8,20 @@ namespace SudokuDP1.Model
 {
     public class Cell
     {
-        public int Value { get; set; }
-
-        public string Valuestr { get { return Value.ToString(); } set { Value = int.Parse(value); } }
+        private int? _value;
+        public int? Value { get { return _value; }
+            set
+            {
+                if (value > 0)
+                {
+                    _value = value;
+                }
+                else
+                {
+                    _value = null;
+                }
+            } 
+        }
 
         public int Region { get; set; }
 
@@ -21,6 +32,7 @@ namespace SudokuDP1.Model
         public Cell(int value, int reg, int x, int y) 
         {
             this.Value = value;
+
             this.Region = reg;
             this.X = x;
             this.Y = y;

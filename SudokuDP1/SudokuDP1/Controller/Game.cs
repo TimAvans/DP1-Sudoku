@@ -12,10 +12,10 @@ namespace SudokuDP1.Controller
     //Class to handle everything
     public class Game
     {
-        private IBuilder builder;
+        private IBuilder<ISudoku> builder;
         private ConcreteParser parser;
 
-        public Sudoku Sudoku { get; set; }
+        public ISudoku Sudoku { get; set; }
 
         public Game()
         {
@@ -25,8 +25,11 @@ namespace SudokuDP1.Controller
 
         public void MakeSudoku(string location)
         {
-            builder.Reset();
+            builder.BuildSudoku(parser.FileReader.GetSudokuType(location));
             builder.BuildCells(parser.Parse(location));
+            builder.BuildRows();
+            builder.BuildColumns();
+            builder.BuildRegions();
 
             Sudoku = builder.GetResult();
         }

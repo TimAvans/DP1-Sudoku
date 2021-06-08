@@ -8,7 +8,7 @@ namespace SudokuDP1.Factory.Parser
 {
     class SamuraiParser : IParser
     {
-        public const string Type = "samuraiparser";
+        public const string Type = "samurai";
 
         public IParser Clone()
         {

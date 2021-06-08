@@ -7,7 +7,7 @@ namespace SudokuDP1.Factory.Parser
 {
     public class RegularParser : IParser
     {
-        public const string Type = "regularparser";
+        public const string Type = "regular";
 
         public RegularParser() { }
 
@@ -29,6 +29,9 @@ namespace SudokuDP1.Factory.Parser
             int regX = -1; //X in region
             int currX = -1; //X in total
 
+            int sudokuY = 0;
+            int sudokuX = -1;
+
             int regNumber = 0;
 
             List<int[]> cell_data = new List<int[]>();
@@ -38,6 +41,8 @@ namespace SudokuDP1.Factory.Parser
                 //gridwidth behaald, regeltje omlaag
                 if (currX >= gridWidth - 1) //Ga row naar beneden
                 {
+                    sudokuY++;
+                    sudokuX = 0;
                     if (regY >= amt_regionrow-1)
                     {//regio omlaag
                         regX = 0;
@@ -63,10 +68,11 @@ namespace SudokuDP1.Factory.Parser
                     }
                     regX++;
                     currX++;
+                    sudokuX++;
                 }
 
                 int val = (int)Char.GetNumericValue(c);
-                cell_data.Add(new int[4] { (int)Char.GetNumericValue(c), regNumber, regX, regY });
+                cell_data.Add(new int[4] { (int)Char.GetNumericValue(c), regNumber, sudokuX, sudokuY});
             }
 
             //foreach (Cell cell in cells)

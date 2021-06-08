@@ -1,13 +1,14 @@
 ﻿using SudokuDP1.Factory.Parser;
+using System;
 
 namespace SudokuDP1.Factory
 {
-    public interface IFactory
+    public interface IFactory<T>
     {
-        void Register(string type, IParser parser);
+        void Register(string type, T obj);
 
         void LoadTypes();
 
-        IParser Create(string type);
+        T Create(string type);
     }
 }

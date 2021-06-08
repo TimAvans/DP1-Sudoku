@@ -1,17 +1,25 @@
-﻿using System;
+﻿using SudokuDP1.Visitor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SudokuDP1.Model
-{
-    public class Region
+namespace SudokuDP1.Model 
+{ 
+    public class Region : IValidatable
     {
-        public Dictionary<int, Cell[]> region = new Dictionary<int, Cell[]>();
-        public int X;
-        public int Y;
-        public int width;
-        public int height;
+
+        public Region(List<Cell> cells)
+        {
+            Cells = cells;
+        }
+
+        public List<Cell> Cells { get; set; }
+
+        public void AcceptVisitor(IVisitor visitor)
+        {
+            visitor.DoForRegion(this);
+        }
     }
 }
