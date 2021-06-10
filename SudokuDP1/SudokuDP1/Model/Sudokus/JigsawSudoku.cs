@@ -14,6 +14,11 @@ namespace SudokuDP1.Model
 
         //Children = Rows, Regions, Columns
         public List<IValidatable> Children { get; set; }
+        
+        public JigsawSudoku()
+        {
+            Children = new List<IValidatable>();
+        }
 
         string ISudoku.Type()
         {
