@@ -11,12 +11,9 @@ namespace SudokuDP1.Model
     {
         public List<IValidatable> Children { get; set; }
 
-        public string type { get; set; }
-
         public CompoundValidatable(List<IValidatable> children)
         {
             Children = children;
-            this.type = type;
         }
 
         public void AcceptVisitor(IVisitor visitor)

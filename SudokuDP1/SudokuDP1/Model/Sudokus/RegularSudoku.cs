@@ -19,7 +19,7 @@ namespace SudokuDP1.Model
 
         public override string Type()
         {
-            return "regular";
+            return TYPE;
         }
 
         public override ISudoku Clone()

@@ -7,7 +7,7 @@ namespace SudokuDP1.Factory.Parser
 {
     public class RegularParser : IParser
     {
-        public const string Type = "regular";
+        public const string TYPE = "regular";
 
         public RegularParser() { }
 
@@ -16,7 +16,7 @@ namespace SudokuDP1.Factory.Parser
             return (IParser)MemberwiseClone();
         }
 
-        public List<int[]> Parse(List<string> file)
+        public List<Dictionary<string, int>> Parse(List<string> file)
         {
             //Grid array
             // -> subrosters -> cells
@@ -34,7 +34,7 @@ namespace SudokuDP1.Factory.Parser
 
             int regNumber = 0;
 
-            List<int[]> cell_data = new List<int[]>();
+            List<Dictionary<string, int>> cell_data = new List<Dictionary<string, int>>();
 
             foreach (char c in file[0])
             {
@@ -71,8 +71,14 @@ namespace SudokuDP1.Factory.Parser
                     sudokuX++;
                 }
 
-                int val = (int)Char.GetNumericValue(c);
-                cell_data.Add(new int[4] { (int)Char.GetNumericValue(c), regNumber, sudokuX, sudokuY});
+                cell_data.Add(new Dictionary<string, int>
+                {
+                    { "value", (int)Char.GetNumericValue(c) },
+                    { "region", regNumber},
+                    { "superregion", 0 },
+                    { "x", sudokuX },
+                    { "y", sudokuY }
+                });
             }
 
             //foreach (Cell cell in cells)
@@ -83,9 +89,9 @@ namespace SudokuDP1.Factory.Parser
             return cell_data;
         }
 
-        string IParser.Type()
+        public string Type()
         {
-            return Type;
+            return TYPE;
         }
     }
 }

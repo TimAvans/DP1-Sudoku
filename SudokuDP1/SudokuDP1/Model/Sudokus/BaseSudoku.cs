@@ -9,7 +9,6 @@ namespace SudokuDP1.Model.Sudokus
 {
     public abstract class BaseSudoku : ISudoku
     {
-        
         public BaseSudoku()
         {
             Cells = new List<Cell>();
@@ -38,7 +37,7 @@ namespace SudokuDP1.Model.Sudokus
 
         public virtual string Type()
         {
-            return "Base";
+            throw new NotImplementedException();
         }
 
         public bool Validate()

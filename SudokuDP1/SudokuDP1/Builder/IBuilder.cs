@@ -9,12 +9,11 @@ namespace SudokuDP1.Builder
 {
     public interface IBuilder<T>
     {
-        void BuildCells(List<int[]> cell_data);
+        void BuildCells(List<Dictionary<string, int>> cell_data);
         void BuildSudoku(string type);
+        void BuildCompounds();
 
-        void BuildRows();
-        void BuildColumns();
-        void BuildRegions();
         T GetResult();
+        IBuilder<T> Clone();
     }
 }

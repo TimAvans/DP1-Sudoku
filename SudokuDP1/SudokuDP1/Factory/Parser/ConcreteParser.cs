@@ -16,7 +16,7 @@ namespace SudokuDP1.Factory.Parser
             FileReader = new Filereader();
         }
 
-        public List<int[]> Parse(string location) 
+        public List<Dictionary<string, int>> Parse(string location) 
         {
             System.Console.WriteLine(FileReader.GetSudokuType(Path.GetFileName(location)));
             var x = FileReader.ReadFile(location);

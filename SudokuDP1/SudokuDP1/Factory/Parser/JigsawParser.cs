@@ -8,16 +8,16 @@ namespace SudokuDP1.Factory.Parser
 {
     class JigsawParser : IParser
     {
-        public const string Type = "jigsaw";
+        public const string TYPE = "jigsaw";
 
         public IParser Clone()
         {
             return (JigsawParser)MemberwiseClone();
         }
 
-        public List<int[]> Parse(List<string> file)
+        public List<Dictionary<string, int>> Parse(List<string> file)
         {
-            List<int[]> cell_data = new List<int[]>();
+            List<Dictionary<string, int>> cell_data = new List<Dictionary<string, int>>();
 
             foreach (string line in file)
             {
@@ -28,7 +28,14 @@ namespace SudokuDP1.Factory.Parser
                 int width = (int)Math.Sqrt(data.Length - 1);
                 for(int i = 1; i < data.Length; i++)
                 {
-                    cell_data.Add(new int[4] {(int)Char.GetNumericValue(data[i].Split('J')[0][0]), (int)Char.GetNumericValue(data[i].Split('J')[1][0]), x, y});
+                    cell_data.Add(new Dictionary<string, int>() {
+                        { "value",  (int)Char.GetNumericValue(data[i].Split('J')[0][0]) },
+                        { "region", (int)Char.GetNumericValue(data[i].Split('J')[1][0]) },
+                        { "superregion", 0 },
+                        { "x", x},
+                        { "y", y }
+                    });
+                    
                     if(x + 1 == width)
                     {
                         x = 0;
@@ -42,9 +49,9 @@ namespace SudokuDP1.Factory.Parser
             return cell_data;
         }
 
-        string IParser.Type()
+        public string Type()
         {
-            return Type;
+            return TYPE;
         }
     }
 }

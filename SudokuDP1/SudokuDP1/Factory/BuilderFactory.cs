@@ -1,4 +1,6 @@
-﻿using SudokuDP1.Factory.Parser;
+﻿using SudokuDP1.Builder;
+using SudokuDP1.Factory.Parser;
+using SudokuDP1.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace SudokuDP1.Factory
 {
-    public class ParserFactory : IFactory<IParser>
+    public class BuilderFactory : IFactory<IBuilder<ISudoku>>
     {
-        private Dictionary<string, IParser> Types = new Dictionary<string, IParser>();
+        private Dictionary<string, IBuilder<ISudoku>> Types = new Dictionary<string, IBuilder<ISudoku>>();
 
-        public ParserFactory() { LoadTypes(); }
+        public BuilderFactory() { LoadTypes(); }
 
         public void LoadTypes()
         {
@@ -20,26 +22,26 @@ namespace SudokuDP1.Factory
 
             foreach (Type type in typesInThisAssembly)
             {
-                if (type.GetInterfaces().Contains(typeof(IParser)))
+                if (type.GetInterfaces().Contains(typeof(IBuilder<ISudoku>)))
                 {
                     FieldInfo field = type.GetField("TYPE");
                     if (field == null)
                         Console.WriteLine("There are no types");
                     else
                         Register(field.GetValue(null).ToString(),
-                            (IParser)Activator.CreateInstance(type));
+                            (IBuilder<ISudoku>)Activator.CreateInstance(type));
                 }
             }
         }
 
-        public void Register(string type, IParser parser) 
+        public void Register(string type, IBuilder<ISudoku> parser)
         {
             Types[type] = parser;
         }
 
-        public IParser Create(string type)
+        public IBuilder<ISudoku> Create(string type)
         {
-            IParser tmp = Types[type];
+            IBuilder<ISudoku> tmp = Types[type];
             return tmp.Clone();
         }
     }

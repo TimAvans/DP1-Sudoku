@@ -103,7 +103,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Builder\SudokuBuilder.cs" />
+    <Compile Include="Builder\BaseSudokuBuilder.cs" />
+    <Compile Include="Builder\SamuraiSudokuBuilder.cs" />
+    <Compile Include="Builder\SquareSudokuBuilder.cs" />
+    <Compile Include="Factory\BuilderFactory.cs" />
     <Compile Include="Factory\ParserFactory.cs" />
     <Compile Include="Factory\Parser\ConcreteParser.cs" />
     <Compile Include="Factory\Parser\IParser.cs" />

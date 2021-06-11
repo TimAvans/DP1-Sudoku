@@ -16,7 +16,7 @@ namespace SudokuDP1.Model
 
         public override string Type()
         {
-            return "jigsaw";
+            return TYPE;
         }
 
         public override ISudoku Clone()
