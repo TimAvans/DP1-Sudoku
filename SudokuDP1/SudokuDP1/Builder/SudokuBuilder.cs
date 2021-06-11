@@ -13,36 +13,15 @@ namespace SudokuDP1.Builder
         private ISudoku sudoku;
         private IFactory<ISudoku> factory;
 
-        Dictionary<string, Action> functions;
-
         public SudokuBuilder()
         {
             this.factory = new SudokuFactory();
-            functions = new Dictionary<string, Action>();
-            functions.Add("regular", BuildRegularSudoku);
-            functions.Add("jigsaw", BuildRegularSudoku);
-            functions.Add("samurai", BuildRegularSudoku);
         }
        
         public void BuildSudoku(string type)
         {
             sudoku = factory.Create(type.ToLower());
             functions[type]();
-        }
-
-        public void BuildRegularSudoku()
-        {
-
-        }
-
-        public void BuildJigsawSudoku()
-        {
-
-        }
-
-        public void BuildSamuraiSudoku()
-        {
-            //Children.Add(5x regular 9x9 sudoku);
         }
         
         public void BuildCells(List<int[]> cell_data)
