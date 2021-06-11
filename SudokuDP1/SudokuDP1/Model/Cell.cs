@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SudokuDP1.Visitor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SudokuDP1.Model
 {
-    public class Cell
+    public class Cell : IValidatable
     {
         private int? _value;
         public int? Value { get { return _value; }
@@ -23,6 +24,8 @@ namespace SudokuDP1.Model
             } 
         }
 
+        public bool isValidated { get; set; }
+
         public int Region { get; set; }
 
         public int X { get; set; }
@@ -38,5 +41,9 @@ namespace SudokuDP1.Model
             this.Y = y;
         }
 
+        public bool Validate()
+        {
+            return Value != null;
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace SudokuDP1.Factory
             {
                 if (type.GetInterfaces().Contains(typeof(ISudoku)))
                 {
-                    FieldInfo field = type.GetField("Type");
+                    FieldInfo field = type.GetField("TYPE");
                     if (field == null)
                         Console.WriteLine("There are no types");
                     else

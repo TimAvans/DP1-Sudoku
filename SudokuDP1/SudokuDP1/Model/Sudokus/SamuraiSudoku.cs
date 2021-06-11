@@ -1,4 +1,5 @@
-﻿using SudokuDP1.Visitor;
+﻿using SudokuDP1.Model.Sudokus;
+using SudokuDP1.Visitor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,26 +8,21 @@ using System.Threading.Tasks;
 
 namespace SudokuDP1.Model
 {
-    public class SamuraiSudoku : ISudoku
+    public class SamuraiSudoku : BaseSudoku
     {
-        public List<Cell> Cells { get; set; }
-        public List<IValidatable> Children { get; set; }
 
-        public const string Type = "samurai";
+        public const string TYPE = "samurai";
 
-        string ISudoku.Type()
+        public SamuraiSudoku() : base(){}
+
+        public override string Type()
         {
             return "samurai";
         }
 
-        public ISudoku Clone()
+        public override ISudoku Clone()
         {
             return (SamuraiSudoku)MemberwiseClone();
-        }
-
-        public void AcceptVisitor(IVisitor visitor)
-        {
-            visitor.DoForSamuraiSudoku(this);
         }
     }
 }

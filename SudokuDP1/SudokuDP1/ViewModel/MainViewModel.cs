@@ -35,18 +35,8 @@ namespace SudokuDP1.ViewModel
         {
             if (Game.Sudoku != null)
             {
-                foreach (Cell c in Game.Sudoku.Cells)
-                {
-                    Console.WriteLine(c.Value);
-                }
-                Console.WriteLine("--------");
-                foreach(Cell c in Game.Sudoku.Children[0].Cells)
-                {
-                    Console.WriteLine(c.Value);
-                }
-
                 IVisitor visitor = new ValidationVisitor();
-                Game.Sudoku.AcceptVisitor(visitor);
+                Game.Sudoku.AcceptForRegions(visitor);
             }
         }
 

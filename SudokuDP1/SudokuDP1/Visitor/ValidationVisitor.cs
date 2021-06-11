@@ -9,72 +9,37 @@ namespace SudokuDP1.Visitor
 {
     public class ValidationVisitor : IVisitor
     {
-        public void DoForRegularSudoku(RegularSudoku sudoku)
+        public void VisitCompoundValidatable(CompoundValidatable compound)
         {
-            Console.WriteLine("regular");
-            foreach (IValidatable v in sudoku.Children)
+            int amountCellsInRegion = 0;
+
+            foreach(Cell cell in compound.Children)
             {
-                v.AcceptVisitor(this);
+                cell.isValidated = true;
             }
-        }
 
-        public void DoForJigsawSudoku(JigsawSudoku sudoku)
-        {
-            Console.WriteLine("jigsaw");
-        }
-
-        public void DoForSamuraiSudoku(SamuraiSudoku sudoku)
-        {
-            Console.WriteLine("samurai");
-        }
-
-        public void DoForRegion(Region region)
-        {
-            for(int i = 0; i < region.Cells.Count; i++)
+            foreach (Cell celli in compound.Children)
             {
-                for(int t = i + 1; t < region.Cells.Count; t++)
+                foreach (Cell cellt in compound.Children)
                 {
-                    if (region.Cells[i].Value == region.Cells[t].Value)
+                    //don't compare it to itself
+                    if (celli != cellt)
                     {
-                        Console.WriteLine("Found a double in the region: " + region.Cells[i].Region + "; value: " + region.Cells[i].Value + "-" + region.Cells[t].Value);
-                        return;
+                        if (celli.X == cellt.X ||
+                            celli.Y == cellt.Y ||
+                            celli.Region == cellt.Region)
+                        {
+                            celli.isValidated = celli.Validate();
+                            if (celli.Value == cellt.Value)
+                            {
+                                celli.isValidated = false;
+                                cellt.isValidated = false;
+                            }
+                        }
                     }
                 }
+                amountCellsInRegion++;
             }
-            Console.WriteLine("Found no doubles in a region");
-
-        }
-
-        public void DoForRow(Row row)
-        {
-            for (int i = 0; i < row.Cells.Count; i++)
-            {
-                for (int t = i + 1; t < row.Cells.Count; t++)
-                {
-                    if (row.Cells[i].Value == row.Cells[t].Value)
-                    {
-                        Console.WriteLine("Found a double in the row: " + row.Cells[i].Y + "; value: " + row.Cells[i].Value + "-" + row.Cells[t].Value);
-                        return;
-                    }
-                }
-            }
-            Console.WriteLine("Found no doubles in a row");
-        }
-
-        public void DoForColumn(Column column)
-        {
-            for (int i = 0; i < column.Cells.Count; i++)
-            {
-                for (int t = i + 1; t < column.Cells.Count; t++)
-                {
-                    if (column.Cells[i].Value == column.Cells[t].Value)
-                    {
-                        Console.WriteLine("Found a double in the column: " + column.Cells[i].X + "; value: " + column.Cells[i].Value + "-" + column.Cells[t].Value);
-                        return;
-                    }
-                }
-            }
-            Console.WriteLine("Found no doubles in a column");
         }
     }
 }

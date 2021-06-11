@@ -113,10 +113,11 @@
     <Compile Include="Factory\SudokuFactory.cs" />
     <Compile Include="FileReader\Filereader.cs" />
     <Compile Include="Model\Cell.cs" />
+    <Compile Include="Model\CompoundValidatable.cs" />
     <Compile Include="Model\IValidatable.cs" />
+    <Compile Include="Model\Sudokus\BaseSudoku.cs" />
     <Compile Include="Model\Sudokus\ISudoku.cs" />
     <Compile Include="Model\Sudokus\JigsawSudoku.cs" />
-    <Compile Include="Model\Region.cs" />
     <Compile Include="Model\Sudokus\RegularSudoku.cs" />
     <Compile Include="Model\Sudokus\SamuraiSudoku.cs" />
     <Compile Include="UI\JigsawSudokuWindow.xaml.cs">
@@ -130,9 +131,8 @@
     </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Model\Column.cs" />
+    <Compile Include="Visitor\IVisitable.cs" />
     <Compile Include="Visitor\IVisitor.cs" />
-    <Compile Include="Model\Row.cs" />
     <Compile Include="Visitor\ValidationVisitor.cs" />
     <Page Include="UI\JigsawSudokuWindow.xaml">
       <SubType>Designer</SubType>

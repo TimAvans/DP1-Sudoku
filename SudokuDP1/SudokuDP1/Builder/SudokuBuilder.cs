@@ -21,7 +21,6 @@ namespace SudokuDP1.Builder
         public void BuildSudoku(string type)
         {
             sudoku = factory.Create(type.ToLower());
-            functions[type]();
         }
         
         public void BuildCells(List<int[]> cell_data)
@@ -36,13 +35,13 @@ namespace SudokuDP1.Builder
 
         public void BuildRows()
         {
-            Dictionary<int, List<Cell>> cells = new Dictionary<int, List<Cell>>();
+            Dictionary<int, List<IValidatable>> cells = new Dictionary<int, List<IValidatable>>();
 
             foreach(Cell cell in sudoku.Cells)
             {
                 if (!cells.ContainsKey(cell.Y))
                 {
-                    List<Cell> temp = new List<Cell>();
+                    List<IValidatable> temp = new List<IValidatable>();
                     temp.Add(cell);
                     cells.Add(cell.Y, temp);
                 } else
@@ -51,21 +50,21 @@ namespace SudokuDP1.Builder
                 }
             }
 
-            foreach(KeyValuePair<int, List<Cell>> entry in cells)
+            foreach(KeyValuePair<int, List<IValidatable>> entry in cells)
             {
-                sudoku.Children.Add(new Row(entry.Value));
+                sudoku.Regions.Add(new CompoundValidatable(entry.Value));
             }
         }
 
         public void BuildRegions()
         {
-            Dictionary<int, List<Cell>> cells = new Dictionary<int, List<Cell>>();
+            Dictionary<int, List<IValidatable>> cells = new Dictionary<int, List<IValidatable>>();
 
             foreach (Cell cell in sudoku.Cells)
             {
                 if (!cells.ContainsKey(cell.Region))
                 {
-                    List<Cell> temp = new List<Cell>();
+                    List<IValidatable> temp = new List<IValidatable>();
                     temp.Add(cell);
                     cells.Add(cell.Region, temp);
                 }
@@ -75,21 +74,21 @@ namespace SudokuDP1.Builder
                 }
             }
 
-            foreach (KeyValuePair<int, List<Cell>> entry in cells)
+            foreach (KeyValuePair<int, List<IValidatable>> entry in cells)
             {
-                sudoku.Children.Add(new Region(entry.Value));
+                sudoku.Regions.Add(new CompoundValidatable(entry.Value));
             }
         }
 
         public void BuildColumns()
         {
-            Dictionary<int, List<Cell>> cells = new Dictionary<int, List<Cell>>();
+            Dictionary<int, List<IValidatable>> cells = new Dictionary<int, List<IValidatable>>();
 
             foreach (Cell cell in sudoku.Cells)
             {
                 if (!cells.ContainsKey(cell.X))
                 {
-                    List<Cell> temp = new List<Cell>();
+                    List<IValidatable> temp = new List<IValidatable>();
                     temp.Add(cell);
                     cells.Add(cell.X, temp);
                 }
@@ -99,9 +98,9 @@ namespace SudokuDP1.Builder
                 }
             }
 
-            foreach (KeyValuePair<int, List<Cell>> entry in cells)
+            foreach (KeyValuePair<int, List<IValidatable>> entry in cells)
             {
-                sudoku.Children.Add(new Column(entry.Value));
+                sudoku.Regions.Add(new CompoundValidatable(entry.Value));
             }
         }
 
