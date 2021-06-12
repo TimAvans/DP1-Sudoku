@@ -12,8 +12,13 @@ namespace SudokuDP1.Model
     {
 
         public const string TYPE = "samurai";
+        public List<CompoundValidatable> SuperRegions;
 
-        public SamuraiSudoku() : base(){}
+
+        public SamuraiSudoku() : base()
+        {
+            SuperRegions = new List<CompoundValidatable>();
+        }
 
         public override string Type()
         {

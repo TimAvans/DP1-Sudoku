@@ -31,7 +31,7 @@ namespace SudokuDP1.Builder
             List<Cell> cells = new List<Cell>();
             foreach (var data in cell_data)
             {
-                cells.Add(new Cell(data["value"], data["region"], data["x"], data["y"]));
+                cells.Add(new Cell(data["value"], data["region"], data["superregion"], data["x"], data["y"]));
             }
             this.sudoku.Cells = cells;
 

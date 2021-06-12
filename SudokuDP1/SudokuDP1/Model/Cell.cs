@@ -28,15 +28,18 @@ namespace SudokuDP1.Model
 
         public int Region { get; set; }
 
+        public int SuperRegion { get; set; }
+
         public int X { get; set; }
 
         public int Y { get; set; }
 
-        public Cell(int value, int reg, int x, int y) 
+        public Cell(int value, int reg, int superregion, int x, int y) 
         {
             this.Value = value;
 
             this.Region = reg;
+            this.SuperRegion = superregion;
             this.X = x;
             this.Y = y;
         }

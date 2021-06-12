@@ -39,7 +39,7 @@ namespace SudokuDP1.Builder
                             dictionaries[i] = BuildColumn(dictionaries[i], cell);
                             break;
                         case 'S':
-                            dictionaries[i] = BuildSuperRegion();
+                            dictionaries[i] = BuildSuperRegion(dictionaries[i], cell);
                             break;
                     }
             }
@@ -51,9 +51,21 @@ namespace SudokuDP1.Builder
             }
         }
 
-        public Dictionary<int, List<IValidatable>> BuildSuperRegion()
+        public Dictionary<int, List<IValidatable>> BuildSuperRegion(Dictionary<int, List<IValidatable>> list, Cell cell)
         {
-            throw new NotImplementedException();
+
+            if (!list.ContainsKey(cell.SuperRegion))
+            {
+                List<IValidatable> temp = new List<IValidatable>();
+                temp.Add(cell);
+                list.Add(cell.SuperRegion, temp);
+            }
+            else
+            {
+                list[cell.SuperRegion].Add(cell);
+            }
+
+            return list;
         }
 
         public override IBuilder<ISudoku> Clone()
