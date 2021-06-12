@@ -13,59 +13,58 @@ namespace SudokuDP1.Builder
 
         public SamuraiSudokuBuilder() : base()
         {
-            CompoundTypes.Add('S');
         }
 
         public override void BuildCompounds()
         {
+            List<CompoundValidatable> SuperRegions = new List<CompoundValidatable>();
+
             List<Dictionary<int, List<IValidatable>>> dictionaries = new List<Dictionary<int, List<IValidatable>>>();
             foreach (char c in CompoundTypes)
             {
                 dictionaries.Add(new Dictionary<int, List<IValidatable>>());
             }
 
-            for (int i = 0; i < CompoundTypes.Count; i++)
+            for (int r = 0; r < 5; r++)
             {
-                foreach (Cell cell in sudoku.Cells)
-                    switch (CompoundTypes[i])
+
+                for (int i = 0 + (r * sudoku.Cells.Count / 5); i < sudoku.Cells.Count / 5; i++)
+                {
+                    int counter = 0;
+                    foreach(char c in CompoundTypes)
                     {
-                        case 'R':
-                            dictionaries[i] = BuildRegion(dictionaries[i], cell);
-                            break;
-                        case 'Y':
-                            dictionaries[i] = BuildRow(dictionaries[i], cell);
-                            break;
-                        case 'X':
-                            dictionaries[i] = BuildColumn(dictionaries[i], cell);
-                            break;
-                        case 'S':
-                            dictionaries[i] = BuildSuperRegion(dictionaries[i], cell);
-                            break;
+                        switch (c)
+                        {
+                            case 'R':
+                                dictionaries[counter] = BuildRegion(dictionaries[counter], sudoku.Cells[i]);
+                                break;
+                            case 'Y':
+                                dictionaries[counter] = BuildRow(dictionaries[counter], sudoku.Cells[i]);
+                                break;
+                            case 'X':
+                                dictionaries[counter] = BuildColumn(dictionaries[counter], sudoku.Cells[i]);
+                                break;
+                        }
+                        counter++;
                     }
+                }
+
+                List<IValidatable> RowsRegionsColumns = new List<IValidatable>();
+                foreach (var entry in dictionaries)
+                {
+                    foreach (var data in entry.Values)
+                    {
+                        RowsRegionsColumns.Add(new CompoundValidatable(data));
+                    }
+                }
+
+                SuperRegions.Add(new CompoundValidatable(RowsRegionsColumns));
             }
 
-            foreach (var entry in dictionaries)
+            foreach (CompoundValidatable compound in SuperRegions)
             {
-                foreach (var data in entry.Values)
-                    sudoku.Regions.Add(new CompoundValidatable(data));
+                sudoku.Regions.Add(compound);
             }
-        }
-
-        public Dictionary<int, List<IValidatable>> BuildSuperRegion(Dictionary<int, List<IValidatable>> list, Cell cell)
-        {
-
-            if (!list.ContainsKey(cell.SuperRegion))
-            {
-                List<IValidatable> temp = new List<IValidatable>();
-                temp.Add(cell);
-                list.Add(cell.SuperRegion, temp);
-            }
-            else
-            {
-                list[cell.SuperRegion].Add(cell);
-            }
-
-            return list;
         }
 
         public override IBuilder<ISudoku> Clone()
