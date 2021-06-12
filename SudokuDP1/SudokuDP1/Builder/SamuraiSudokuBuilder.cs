@@ -20,18 +20,47 @@ namespace SudokuDP1.Builder
             List<CompoundValidatable> SuperRegions = new List<CompoundValidatable>();
 
             List<Dictionary<int, List<IValidatable>>> dictionaries = new List<Dictionary<int, List<IValidatable>>>();
+
             foreach (char c in CompoundTypes)
             {
                 dictionaries.Add(new Dictionary<int, List<IValidatable>>());
             }
 
+            dictionaries = FillDictionaries(dictionaries);
+
+            SuperRegions = FillSuperRegions(SuperRegions, dictionaries);
+
+            foreach (CompoundValidatable compound in SuperRegions)
+            {
+                sudoku.Regions.Add(compound);
+            }
+        }
+
+        public List<CompoundValidatable> FillSuperRegions(List<CompoundValidatable> SuperRegions, List<Dictionary<int, List<IValidatable>>> dictionaries) 
+        {
             for (int r = 0; r < 5; r++)
             {
+                List<IValidatable> RowsRegionsColumns = new List<IValidatable>();
+                foreach (var entry in dictionaries)
+                {
+                    foreach (var data in entry.Values)
+                    {
+                        RowsRegionsColumns.Add(new CompoundValidatable(data));
+                    }
+                }
+                SuperRegions.Add(new CompoundValidatable(RowsRegionsColumns));
+            }
+            return SuperRegions;
+        }
 
+        public override List<Dictionary<int, List<IValidatable>>> FillDictionaries(List<Dictionary<int, List<IValidatable>>> dictionaries)
+        {
+            for (int r = 0; r < 5; r++)
+            {
                 for (int i = 0 + (r * sudoku.Cells.Count / 5); i < sudoku.Cells.Count / 5; i++)
                 {
                     int counter = 0;
-                    foreach(char c in CompoundTypes)
+                    foreach (char c in CompoundTypes)
                     {
                         switch (c)
                         {
@@ -48,23 +77,8 @@ namespace SudokuDP1.Builder
                         counter++;
                     }
                 }
-
-                List<IValidatable> RowsRegionsColumns = new List<IValidatable>();
-                foreach (var entry in dictionaries)
-                {
-                    foreach (var data in entry.Values)
-                    {
-                        RowsRegionsColumns.Add(new CompoundValidatable(data));
-                    }
-                }
-
-                SuperRegions.Add(new CompoundValidatable(RowsRegionsColumns));
             }
-
-            foreach (CompoundValidatable compound in SuperRegions)
-            {
-                sudoku.Regions.Add(compound);
-            }
+            return dictionaries;
         }
 
         public override IBuilder<ISudoku> Clone()

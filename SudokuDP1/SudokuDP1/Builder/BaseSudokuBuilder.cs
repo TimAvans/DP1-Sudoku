@@ -41,32 +41,44 @@ namespace SudokuDP1.Builder
         public virtual void BuildCompounds()
         {
             List<Dictionary<int, List<IValidatable>>> dictionaries = new List<Dictionary<int, List<IValidatable>>>();
+
             foreach(char c in CompoundTypes)
             {
                 dictionaries.Add(new Dictionary<int, List<IValidatable>>());
             }
 
+            dictionaries = FillDictionaries(dictionaries);
+
+            AddRegions(dictionaries);
+        }
+
+        public virtual List<Dictionary<int, List<IValidatable>>> FillDictionaries(List<Dictionary<int, List<IValidatable>>> dictionaries) 
+        {
             for (int i = 0; i < CompoundTypes.Count; i++)
             {
-                foreach(Cell cell in sudoku.Cells)
-                switch (CompoundTypes[i])
-                {
-                    case 'R':
-                        dictionaries[i] = BuildRegion(dictionaries[i], cell);
-                        break;
-                    case 'Y':
-                        dictionaries[i] = BuildRow(dictionaries[i], cell);
-                        break;
-                    case 'X':
-                        dictionaries[i] = BuildColumn(dictionaries[i], cell);
-                        break;
-                }
+                foreach (Cell cell in sudoku.Cells)
+                    switch (CompoundTypes[i])
+                    {
+                        case 'R':
+                            dictionaries[i] = BuildRegion(dictionaries[i], cell);
+                            break;
+                        case 'Y':
+                            dictionaries[i] = BuildRow(dictionaries[i], cell);
+                            break;
+                        case 'X':
+                            dictionaries[i] = BuildColumn(dictionaries[i], cell);
+                            break;
+                    }
             }
+            return dictionaries;
+        }
 
-            foreach(var entry in dictionaries)
+        public virtual void AddRegions(List<Dictionary<int, List<IValidatable>>> dictionaries) 
+        {
+            foreach (var entry in dictionaries)
             {
-                foreach(var data in entry.Values)
-                sudoku.Regions.Add(new CompoundValidatable(data));
+                foreach (var data in entry.Values)
+                    sudoku.Regions.Add(new CompoundValidatable(data));
             }
         }
 
