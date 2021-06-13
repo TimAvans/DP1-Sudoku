@@ -123,24 +123,11 @@
     <Compile Include="Model\Sudokus\JigsawSudoku.cs" />
     <Compile Include="Model\Sudokus\RegularSudoku.cs" />
     <Compile Include="Model\Sudokus\SamuraiSudoku.cs" />
-    <Compile Include="UI\JigsawSudokuWindow.xaml.cs">
-      <DependentUpon>JigsawSudokuWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\RegularSudokuWindow.xaml.cs">
-      <DependentUpon>RegularSudokuWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SamuraiSudokuWindow.xaml.cs">
-      <DependentUpon>SamuraiSudokuWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Visitor\IVisitable.cs" />
     <Compile Include="Visitor\IVisitor.cs" />
     <Compile Include="Visitor\ValidationVisitor.cs" />
-    <Page Include="UI\JigsawSudokuWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -156,14 +143,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UI\RegularSudokuWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\SamuraiSudokuWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

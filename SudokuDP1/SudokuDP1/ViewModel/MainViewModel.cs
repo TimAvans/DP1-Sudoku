@@ -4,7 +4,6 @@ using Microsoft.Win32;
 using SudokuDP1.Controller;
 using SudokuDP1.Factory.Parser;
 using SudokuDP1.Model;
-using SudokuDP1.UI;
 using SudokuDP1.Visitor;
 using System;
 using System.Collections.Generic;
@@ -51,24 +50,6 @@ namespace SudokuDP1.ViewModel
 
                 Game.MakeSudoku(dialog.FileName);
                 RaisePropertyChanged("Game");
-
-                switch (Game.Sudoku.Type())
-                {
-                    case "regular":
-                        RegularSudokuWindow regWindow = new RegularSudokuWindow();
-                        regWindow.Show();
-                        break;
-                    case "jigsaw":
-                        JigsawSudokuWindow jigWindow = new JigsawSudokuWindow();
-                        jigWindow.Show();
-                        break;
-                    case "samurai":
-                        SamuraiSudokuWindow SamWindow = new SamuraiSudokuWindow();
-                        SamWindow.Show();
-                        break;
-                    default:
-                        break;
-                }
             }
         }
     }

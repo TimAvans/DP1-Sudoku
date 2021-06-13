@@ -41,7 +41,14 @@ namespace SudokuDP1.Factory
 
         public IBuilder<ISudoku> Create(string type)
         {
-            IBuilder<ISudoku> tmp = Types[type];
+            IBuilder<ISudoku> tmp;
+            if (!Types.ContainsKey(type))
+            {
+                tmp = Types["regular"];
+            } else
+            {
+                tmp = Types[type];
+            }
             return tmp.Clone();
         }
     }
